@@ -1,17 +1,16 @@
 package com.example.demo.repositories;
 
+import com.example.demo.miscTools.requestBody.Head2Head;
 import com.example.demo.model.Match;
 import com.example.demo.model.PlayerStatistics;
-import com.example.demo.rowMappers.MatchRowMapper;
-import com.example.demo.rowMappers.PlayerNameMapper;
-import com.example.demo.rowMappers.PlayerStatisticsRowMapper;
+import com.example.demo.miscTools.rowMappers.MatchRowMapper;
+import com.example.demo.miscTools.rowMappers.PlayerNameMapper;
+import com.example.demo.miscTools.rowMappers.PlayerStatisticsRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.RequestBody;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,8 +30,8 @@ public class TennisRepo {
         String sql = "select tourney_date, tourney_name, surface, round, winner_name, winner_rank, " +
                 "loser_name, loser_rank, score from atp_match_overview_view " +
                 "where (winner_name = ? and loser_name = ?) " +
-                "or (winner_name = ? and loser_name = ?)";
-        return jdbc.query(sql, new MatchRowMapper(), player1, player2, player2, player1);
+                "or (winner_name = ? and loser_name = ?) order by tourney_date desc";
+        return jdbc.query(sql, new MatchRowMapper(),player1,player2,player2,player1);
     }
 
     public PlayerStatistics getPlayerStatisticsByName(String playerName) {

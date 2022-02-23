@@ -1,4 +1,4 @@
-package com.example.demo.rowMappers;
+package com.example.demo.miscTools.rowMappers;
 
 import com.example.demo.model.PlayerStatistics;
 import org.springframework.jdbc.core.RowMapper;

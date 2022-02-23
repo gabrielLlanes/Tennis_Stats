@@ -1,4 +1,4 @@
-package com.example.demo.miscTools;
+package com.example.demo.miscTools.comparators;
 
 import java.util.Comparator;
 

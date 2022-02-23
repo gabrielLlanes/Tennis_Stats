@@ -1,6 +1,6 @@
-package com.example.demo.miscTools;
+package com.example.demo.miscTools.comparators;
 
-import com.example.demo.model.Match;
+import com.example.demo.miscTools.comparators.RoundComparator;
 import com.example.demo.model.PlayerActivitySingleTournamentMatch;
 
 import java.util.Comparator;

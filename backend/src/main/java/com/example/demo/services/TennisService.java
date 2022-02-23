@@ -1,6 +1,6 @@
 package com.example.demo.services;
 
-import com.example.demo.miscTools.SingleTournamentMatchComparator;
+import com.example.demo.miscTools.comparators.SingleTournamentMatchComparator;
 import com.example.demo.model.Match;
 import com.example.demo.model.PlayerActivitySingleTournament;
 import com.example.demo.model.PlayerActivitySingleTournamentMatch;
