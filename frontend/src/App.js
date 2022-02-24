@@ -9,12 +9,15 @@ import PlayerActivity from './components/PlayerActivity';
 
 function App() {
   const [currFunction, setCurrFunction] = useState(1);
-  const [rivalry, setRivalry] = useState({p1:"", p2:""});
   const [show, setShow] = useState({rivalry:false, indStats:false, indActivity:false});
+
+  const [rivalry, setRivalry] = useState({p1:"", p2:""});
   const [rivalryData, setRivalryData] = useState([]);
+
   const [currentPlayer, setCurrentPlayer] = useState("");
   const [currentPlayerStats, setCurrentPlayerStats] = useState();
-  const [currentPlayerAct, setCurrentPlayerAct] = useState({player:""});
+
+  const [currentPlayerAct, setCurrentPlayerAct] = useState("");
   const [currentPlayerActivity, setCurrentPlayerActivity] = useState([]);
 
   
@@ -39,7 +42,7 @@ function App() {
 
   const handlePlayerActivitySubmission = (event) => {
     event.preventDefault();
-    TennisService.getPlayerActivity(currentPlayerAct.player).then(response => {
+    TennisService.getPlayerActivity(currentPlayerAct).then(response => {
       console.log(response);
       setCurrentPlayerActivity(response.data);
       setShow({rivalry:false, indStats:false, indActivity:true});
@@ -60,7 +63,7 @@ function App() {
   }
 
   const handlePlayerActChange = (event) => {
-    setCurrentPlayerAct({player:event.target.value});
+    setCurrentPlayerAct(event.target.value);
   }
 
   return (
@@ -73,14 +76,14 @@ function App() {
           setCurrFunction(1);
           setShow({rivalry:false, indStats:false, indActivity:false});
           setCurrentPlayerStats({});
-          setCurrentPlayer('');setCurrentPlayerAct({player:''});setCurrentPlayerActivity([]);
+          setCurrentPlayer('');setCurrentPlayerAct('');setCurrentPlayerActivity([]);
           }}>H2H Matches</Button>
         </div>
         <div style={{flex:"1", textAlign:"center"}}>
         <Button variant="contained" type="button" onClick={() => {
           setCurrFunction(2);
           setShow({rivalry:false, indStats:false, indActivity:false})
-          setRivalry({p1:'', p2:''}); setRivalryData([]); setCurrentPlayerAct({player:''});setCurrentPlayerActivity([]);
+          setRivalry({p1:'', p2:''}); setRivalryData([]); setCurrentPlayerAct('');setCurrentPlayerActivity([]);
           }}>Individual Player Stats</Button>
         </div>
         <div style={{flex:"1", textAlign:"center"}}>
@@ -93,7 +96,8 @@ function App() {
       </div>
 
       </div>
-      {currFunction == 1 ? <div style={{textAlign:'center', padding:"20px", borderBottom:"3px solid gray"}}>
+      {currFunction == 1 ? 
+      <div style={{textAlign:'center', padding:"20px", borderBottom:"3px solid gray"}}>
         <form onSubmit={handleRivalrySubmission}>
           <div style={{padding:"10px"}}> <span style={{paddingRight:"20px", display:"inline-flex"}}>
             <TextField onChange={handleP1Change} label="Rival 1" InputLabelProps={{ shrink: true }} value={rivalry.p1}></TextField> 
@@ -111,7 +115,7 @@ function App() {
         </form>
       </div> : currFunction == 3 ? <div style={{textAlign:'center', padding:"20px", borderBottom:"3px solid gray"}}>
         <form onSubmit={handlePlayerActivitySubmission}>
-        <div style={{padding:"10px"}}> <TextField onChange={handlePlayerActChange} label="Player" InputLabelProps={{ shrink: true }} value={currentPlayerAct.player}></TextField></div>
+        <div style={{padding:"10px"}}> <TextField onChange={handlePlayerActChange} label="Player" InputLabelProps={{ shrink: true }} value={currentPlayerAct}></TextField></div>
         <Button variant="contained" type="submit">Get Player Activity</Button>
         </form>
       </div> : "No selection"}
@@ -123,7 +127,8 @@ function App() {
       </div> : show.indStats ? 
       <PlayerStats playerStats={currentPlayerStats}/>
        : show.indActivity ? 
-      <PlayerActivity playerActivity={currentPlayerActivity} initial={true}/> : "Waiting for Selection"}
+      <PlayerActivity playerActivity={currentPlayerActivity}/> : 
+      <div style={{textAlign:'center'}}>Waiting for Selection...</div>}
     </div>
   );
 }

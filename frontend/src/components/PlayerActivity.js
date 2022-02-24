@@ -2,28 +2,13 @@ import { Table,TableRow,TableHead,TableBody,TableCell, TextField, Button } from 
 import React, { useEffect } from "react"
 import { useState } from "react";
 
-const PlayerActivity = ({playerActivity}) => {
-    const [year, setYear] = useState(2022);
-    const [playerActivityMapped, setPlayerActivityMapped] = useState([]);
-
-    
-
-    const handleYearChange = (event) => {
-        setYear(event.target.value);
-    }
-
-    const handleYearSubmission = (event) => {
-        console.log("Submitted");
-        console.log(playerActivity);
-        event.preventDefault();
-        setPlayerActivityMapped(playerActivity.filter(tourney => {
-            return tourney.tourneyDate.startsWith(year.toString())}
-            ));
-    }
-    let tourneys = []
-
-    for(let tourney of playerActivityMapped) {
-        tourneys.push (
+const ActivityTables = ({playerActivity, year}) => {
+    let playerActivityFiltered = playerActivity.filter(tourney => {
+        return tourney.tourneyDate.startsWith(year.toString())
+    });
+    return (
+        <>
+        {playerActivityFiltered.map(tourney => 
             <div key={`${tourney.tourneyDate}${tourney.tourneyName}`}>
                 <h3 style={{textAlign:"center"}}>{tourney.tourneyName} : {tourney.tourneyDate}</h3>
                 <Table>
@@ -47,19 +32,36 @@ const PlayerActivity = ({playerActivity}) => {
                     </TableBody>
                 </Table>
             </div>
-        )
-    } 
+            )}
+        </>
+    )
+}
+
+const PlayerActivity = ({playerActivity}) => {
+    const [year, setYear] = useState(2022);
+ //   const [currentActivityTables, setCurrentActivityTables] = useState(<ActivityTables playerActivity={playerActivity}/>)
+    const [newYear, setNewYear] = useState(2022);
+
+    const handleNewYearChange = (event) => {
+        setNewYear(event.target.value);
+    }
+
+    const handleYearSubmission = (event) => {
+        event.preventDefault();
+        setYear(newYear);
+    }
+    
     return (
         <>
         <div style={{textAlign:"center"}}>
             <form onSubmit={handleYearSubmission}>
                 <div>
-                    <TextField label="Year" type="number" min="1995" max="2022" value={year} onChange={handleYearChange}></TextField>
+                    <TextField label="Year" type="number" min="1995" max="2022" value={newYear} onChange={handleNewYearChange}></TextField>
                 </div>
                 <div style={{padding:"10px"}}><Button variant="contained" type="submit">Filter By Year</Button></div>
             </form>
         </div>
-        {tourneys}
+        <ActivityTables playerActivity={playerActivity} year={year}/>
         </>
     )
 }

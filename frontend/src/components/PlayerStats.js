@@ -13,7 +13,7 @@ const PlayerStats = ({playerStats}) => {
                     <TableBody>
                     <TableRow>
                     <TableCell>Career W-L</TableCell>
-                    <TableCell align="left">{playerStats.careerWins} - {playerStats.careerLosses}</TableCell>
+                    <TableCell>{playerStats.careerWins.toString()} - {playerStats.careerLosses.toString()}</TableCell>
                     </TableRow>
                         <TableRow>
                             <TableCell>Total Aces</TableCell>
@@ -66,7 +66,7 @@ const PlayerStats = ({playerStats}) => {
                     <TableBody>
                         <TableRow>
                             <TableCell>1st Serve Return Points Won</TableCell>
-                            <TableCell>{playerStats.returnFirstServeWonPct}%</TableCell>
+                            <TableCell>{playerStats.returnFirstServeWonPct.toString()}%</TableCell>
                         </TableRow>
                         <TableRow>
                             <TableCell>2nd Serve Return Points Won</TableCell>
