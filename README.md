@@ -1,4 +1,6 @@
-# Tennis_Stats
+# Read This
+
+This repo is not being used anymore. I have separated the frontend and backend into separate repos. See my other repos [https://github.com/gabrielLlanes/tennis-api-frontend](frontend) and [https://github.com/gabrielLlanes/tennis-api-backed](backend)
 
 Postgres database was setup using the available CSV files from Jeff Sackmann (see license below). Simple changes to columns were made for purposes of relational design.
 
